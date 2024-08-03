@@ -3,6 +3,7 @@ package socketio
 import (
 	"errors"
 	"fmt"
+	"net/http"
 	"net/url"
 	"path"
 	"strings"
@@ -63,12 +64,12 @@ func fmtNS(ns string) string {
 	return ns
 }
 
-func (c *Client) Connect() error {
+func (c *Client) Connect(header http.Header) error {
 	dialer := engineio.Dialer{
 		Transports: c.opts.Transports,
 	}
 
-	enginioCon, err := dialer.Dial(c.url, nil)
+	enginioCon, err := dialer.Dial(c.url, header)
 	if err != nil {
 		return err
 	}
