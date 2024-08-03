@@ -8,8 +8,6 @@ import (
 	"strings"
 
 	"github.com/googollee/go-socket.io/engineio"
-	"github.com/googollee/go-socket.io/engineio/transport"
-	"github.com/googollee/go-socket.io/engineio/transport/polling"
 	"github.com/googollee/go-socket.io/logger"
 	"github.com/googollee/go-socket.io/parser"
 )
@@ -67,7 +65,7 @@ func fmtNS(ns string) string {
 
 func (c *Client) Connect() error {
 	dialer := engineio.Dialer{
-		Transports: []transport.Transport{polling.Default},
+		Transports: c.opts.Transports,
 	}
 
 	enginioCon, err := dialer.Dial(c.url, nil)
