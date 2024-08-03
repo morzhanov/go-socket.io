@@ -3,6 +3,8 @@ package socketio
 import (
 	"errors"
 	"fmt"
+	"github.com/googollee/go-socket.io/engineio/transport"
+	"github.com/googollee/go-socket.io/engineio/transport/polling"
 	"net/http"
 	"net/url"
 	"path"
@@ -66,7 +68,7 @@ func fmtNS(ns string) string {
 
 func (c *Client) Connect(header http.Header) error {
 	dialer := engineio.Dialer{
-		Transports: c.opts.Transports,
+		Transports: []transport.Transport{polling.Default},
 	}
 
 	enginioCon, err := dialer.Dial(c.url, header)
