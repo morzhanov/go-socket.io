@@ -2,6 +2,7 @@ package socketio
 
 import (
 	"errors"
+	"fmt"
 	"net/url"
 	"path"
 	"strings"
@@ -46,6 +47,7 @@ func NewClient(addr string, opts *engineio.Options) (*Client, error) {
 	if strings.HasSuffix(u.Path, "socket.io") {
 		u.Path += "/"
 	}
+	fmt.Printf("Connecting to %s\n", u.String())
 
 	return &Client{
 		namespace: namespace,
